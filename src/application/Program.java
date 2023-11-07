@@ -1,9 +1,12 @@
 package application;
 
+import chess.ChessException;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Program {
@@ -11,15 +14,27 @@ public class Program {
         Scanner sc = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
         while (true) {
-            UI.printBoard(chessMatch.getPieces());
-            System.out.print("\nSource: ");
-            ChessPosition source = UI.readChessPosition(sc);
+            try {
+                Runtime.getRuntime().exec("clear");
+                UI.printBoard(chessMatch.getPieces());
+                System.out.print("\nSource: ");
+                ChessPosition source = UI.readChessPosition(sc);
 
-            System.out.print("\nTarget: ");
-            ChessPosition target = UI.readChessPosition(sc);
+                System.out.print("\nTarget: ");
+                ChessPosition target = UI.readChessPosition(sc);
 
-            ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+                ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+            } catch (ChessException e) {
+                System.out.println(e.getMessage());
+                sc.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
+                sc.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
 
 }
