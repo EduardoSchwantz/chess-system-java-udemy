@@ -5,7 +5,6 @@ import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,7 +14,7 @@ public class Program {
         ChessMatch chessMatch = new ChessMatch();
         while (true) {
             try {
-                Runtime.getRuntime().exec("clear");
+                UI.clearScreen();
                 UI.printBoard(chessMatch.getPieces());
                 System.out.print("\nSource: ");
                 ChessPosition source = UI.readChessPosition(sc);
@@ -30,11 +29,7 @@ public class Program {
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }
     }
-
-
 }
